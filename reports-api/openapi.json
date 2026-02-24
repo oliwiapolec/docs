@@ -1,0 +1,580 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "LiveChat Reports API",
+		"description": "Reports API for retrieving chat analytics and statistics",
+		"version": "3.6.0",
+		"license": { "name": "MIT" }
+	},
+	"servers": [{ "url": "https://api.livechatinc.com/v3.6/reports/chats" }],
+	"security": [{ "bearerAuth": [] }],
+	"paths": {
+		"/tags": {
+			"get": {
+				"summary": "Tags Report",
+				"description": "Returns the distribution of tags for chats",
+				"operationId": "getTagsReport",
+				"parameters": [
+					{
+						"name": "distribution",
+						"in": "query",
+						"description": "Time distribution (e.g., day, hour)",
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "filters",
+						"in": "query",
+						"description": "Filters for the report",
+						"style": "deepObject",
+						"explode": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"from": { "type": "string", "format": "date-time" },
+								"to": { "type": "string", "format": "date-time" }
+							},
+							"additionalProperties": false
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/TagsReport" },
+								"example": {
+									"name": "tags-report",
+									"total": 369,
+									"records": {
+										"2021-04-08": { "spam": 14, "support": 19 },
+										"2021-04-09": { "spam": 22, "support": 34 },
+										"2021-04-10": { "spam": 42, "support": 18 },
+										"2021-04-11": { "spam": 12, "support": 5 },
+										"2021-04-12": {},
+										"2021-04-13": { "spam": 7, "support": 5 },
+										"2021-04-14": {},
+										"2021-04-15": { "spam": 11, "support": 27 }
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			},
+			"post": {
+				"summary": "Tags Report",
+				"description": "Returns the distribution of tags for chats",
+				"operationId": "postTagsReport",
+				"requestBody": {
+					"description": "Report parameters and filters",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ReportRequest" },
+							"example": {
+								"distribution": "day",
+								"filters": {
+									"from": "2021-04-08T00:00:00-00:00",
+									"to": "2021-04-15T23:59:59-00:00"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/TagsReport" },
+								"example": {
+									"name": "tags-report",
+									"total": 369,
+									"records": {
+										"2021-04-08": { "spam": 14, "support": 19 },
+										"2021-04-09": { "spam": 22, "support": 34 },
+										"2021-04-10": { "spam": 42, "support": 18 },
+										"2021-04-11": { "spam": 12, "support": 5 },
+										"2021-04-12": {},
+										"2021-04-13": { "spam": 7, "support": 5 },
+										"2021-04-14": {},
+										"2021-04-15": { "spam": 11, "support": 27 }
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			}
+		},
+
+		"/total_chats": {
+			"get": {
+				"summary": "Total Chats Report",
+				"description": "Returns how many chats occurred during the specified period",
+				"operationId": "getTotalChatsReport",
+				"parameters": [
+					{
+						"name": "distribution",
+						"in": "query",
+						"description": "Time distribution (e.g., day, hour)",
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "filters",
+						"in": "query",
+						"description": "Filters for the report",
+						"style": "deepObject",
+						"explode": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"from": { "type": "string", "format": "date-time" },
+								"to": { "type": "string", "format": "date-time" }
+							},
+							"additionalProperties": false
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/TotalChatsReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			},
+			"post": {
+				"summary": "Total Chats Report",
+				"description": "Returns how many chats occurred during the specified period",
+				"operationId": "postTotalChatsReport",
+				"requestBody": {
+					"description": "Report parameters and filters",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ReportRequest" },
+							"example": {
+								"distribution": "day",
+								"filters": {
+									"from": "2021-04-08T00:00:00-00:00",
+									"to": "2021-04-15T23:59:59-00:00"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/TotalChatsReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			}
+		},
+
+		"/ratings": {
+			"get": {
+				"summary": "Ratings Report",
+				"description": "Returns the number of rated chats along with their ratings during a specified period of time",
+				"operationId": "getRatingsReport",
+				"parameters": [
+					{
+						"name": "distribution",
+						"in": "query",
+						"description": "Time distribution (e.g., day, hour)",
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "filters",
+						"in": "query",
+						"description": "Filters for the report",
+						"style": "deepObject",
+						"explode": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"from": { "type": "string", "format": "date-time" },
+								"to": { "type": "string", "format": "date-time" }
+							},
+							"additionalProperties": false
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/RatingsReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			},
+			"post": {
+				"summary": "Ratings Report",
+				"description": "Returns the number of rated chats along with their ratings during a specified period of time",
+				"operationId": "postRatingsReport",
+				"requestBody": {
+					"description": "Report parameters and filters",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ReportRequest" },
+							"example": {
+								"distribution": "day",
+								"filters": {
+									"from": "2021-04-08T00:00:00-00:00",
+									"to": "2021-04-15T23:59:59-00:00"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/RatingsReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			}
+		},
+
+		"/ranking": {
+			"get": {
+				"summary": "Ranking Report",
+				"description": "Returns the ratio of good to bad ratings for each operator. Note: The distribution parameter has no effect on this method.",
+				"operationId": "getRankingReport",
+				"parameters": [
+					{
+						"name": "filters",
+						"in": "query",
+						"description": "Filters for the report",
+						"style": "deepObject",
+						"explode": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"from": { "type": "string", "format": "date-time" },
+								"to": { "type": "string", "format": "date-time" }
+							},
+							"additionalProperties": false
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/RankingReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			},
+			"post": {
+				"summary": "Ranking Report",
+				"description": "Returns the ratio of good to bad ratings for each operator. Note: The distribution parameter has no effect on this method.",
+				"operationId": "postRankingReport",
+				"requestBody": {
+					"description": "Report filters (distribution parameter has no effect)",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/RankingReportRequest" },
+							"example": {
+								"filters": {
+									"from": "2021-04-08T00:00:00-00:00",
+									"to": "2021-04-15T23:59:59-00:00"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/RankingReport" }
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Error" }
+							}
+						}
+					}
+				},
+				"security": [{ "bearerAuth": ["reports_read"] }]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"ReportRequest": {
+				"type": "object",
+				"properties": {
+					"distribution": {
+						"type": "string",
+						"description": "Time distribution for the report (e.g., 'day', 'hour')",
+						"example": "day"
+					},
+					"filters": { "$ref": "#/components/schemas/ReportFilters" }
+				}
+			},
+			"RankingReportRequest": {
+				"type": "object",
+				"properties": {
+					"filters": { "$ref": "#/components/schemas/ReportFilters" }
+				}
+			},
+			"ReportFilters": {
+				"type": "object",
+				"properties": {
+					"from": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Start date and time for the report",
+						"example": "2021-04-08T00:00:00-00:00"
+					},
+					"to": {
+						"type": "string",
+						"format": "date-time",
+						"description": "End date and time for the report",
+						"example": "2021-04-15T23:59:59-00:00"
+					}
+				},
+				"required": ["from", "to"]
+			},
+			"TagsReport": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Report name",
+						"example": "tags-report"
+					},
+					"total": {
+						"type": "integer",
+						"description": "The total number of chats in the specified date range"
+					},
+					"records": {
+						"type": "object",
+						"description": "Contains the distribution objects, for example, day",
+						"additionalProperties": {
+							"type": "object",
+							"description": "Distribution period containing tag counts",
+							"additionalProperties": {
+								"type": "integer",
+								"description": "The total number of chats tagged with this tag"
+							}
+						}
+					}
+				}
+			},
+			"TotalChatsReport": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Report name",
+						"example": "total-chats-report"
+					},
+					"total": {
+						"type": "integer",
+						"description": "The total number of chats in the specified date range"
+					},
+					"records": {
+						"type": "object",
+						"description": "Contains the distribution objects, for example, day",
+						"additionalProperties": {
+							"type": "object",
+							"properties": {
+								"total": {
+									"type": "integer",
+									"description": "The total number of chats that day"
+								},
+								"continuous": {
+									"type": "integer",
+									"description": "The number of continuous chats that day"
+								}
+							}
+						}
+					}
+				}
+			},
+			"RatingsReport": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Report name",
+						"example": "ratings-report"
+					},
+					"total": {
+						"type": "integer",
+						"description": "The total number of chats in the specified date range"
+					},
+					"records": {
+						"type": "object",
+						"description": "Contains the distribution objects, for example, day",
+						"additionalProperties": {
+							"type": "object",
+							"properties": {
+								"chats": {
+									"type": "integer",
+									"description": "The total number of chats that day"
+								},
+								"bad": {
+									"type": "integer",
+									"description": "The number of chats rated bad that day"
+								},
+								"good": {
+									"type": "integer",
+									"description": "The number of chats rated good that day"
+								}
+							}
+						}
+					}
+				}
+			},
+			"RankingReport": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Report name",
+						"example": "ranking-report"
+					},
+					"records": {
+						"type": "object",
+						"description": "Contains the agent objects",
+						"additionalProperties": {
+							"type": "object",
+							"description": "Agent email as key",
+							"properties": {
+								"total": {
+									"type": "integer",
+									"description": "The total number of chats an agent had in the specified period"
+								},
+								"good": {
+									"type": "integer",
+									"description": "The number of the agent's chats rated good"
+								},
+								"bad": {
+									"type": "integer",
+									"description": "The number of the agent's chats rated bad"
+								},
+								"score": {
+									"type": "number",
+									"format": "double",
+									"description": "The agent's score"
+								}
+							}
+						}
+					}
+				}
+			},
+			"Error": {
+				"type": "object",
+				"required": ["error", "message"],
+				"properties": {
+					"error": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Error code"
+					},
+					"message": { "type": "string", "description": "Error message" }
+				}
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"description": "Bearer authentication with access token. Required scope: reports_read"
+			}
+		}
+	}
+}
