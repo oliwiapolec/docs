@@ -154,5 +154,13 @@
   },
   "icons": {
     "library": "tabler"
+  },
+  "fonts": {
+    "family": "Inter",
+    "source": "https://platform.text.com/webfonts/ColfaxWebRegular.woff2",
+    "format": "woff2",
+    "heading": {
+      "family": "Geist"
+    }
   }
 }
