@@ -4,8 +4,8 @@
 	"name": "Test Docs | Text",
 	"colors": {
     "primary": "#35E5A6",
-    "light": "#9AF5D4",
-    "dark": "#066140"
+    "light": "#35E5A6",
+    "dark": "#35E5A6"
   },
 	"favicon": "/images/favicon.svg",
 	"navigation": {
