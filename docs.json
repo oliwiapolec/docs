@@ -151,5 +151,8 @@
 			"github": "https://github.com/mintlify",
 			"linkedin": "https://linkedin.com/company/mintlify"
 		}
-	}
+  },
+  "icons": {
+    "library": "tabler"
+  }
 }
