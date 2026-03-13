@@ -3,10 +3,10 @@
 	"theme": "sequoia",
 	"name": "Test Docs | Text",
 	"colors": {
-		"primary": "#16A34A",
-		"light": "#07C983",
-		"dark": "#15803D"
-	},
+    "primary": "#35E5A6",
+    "light": "#9AF5D4",
+    "dark": "#066140"
+  },
 	"favicon": "/images/favicon.svg",
 	"navigation": {
 		"tabs": [
@@ -117,9 +117,9 @@
 		}
 	},
 	"logo": {
-		"light": "/logo/light.svg",
-		"dark": "/logo/dark.svg"
-	},
+    "light": "/images/platform_logo_light.svg",
+    "dark": "/images/platform_logo_dark.svg"
+  },
 	"navbar": {
 		"links": [
 			{
@@ -157,5 +157,10 @@
   },
   "fonts": {
     "family": "Inter"
+  },
+  "background": {
+    "color": {
+      "dark": "#000000"
+    }
   }
 }
